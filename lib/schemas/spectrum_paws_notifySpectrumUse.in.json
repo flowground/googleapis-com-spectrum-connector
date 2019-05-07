@@ -1,0 +1,213 @@
+{
+    "type": "object",
+    "properties": {
+        "alt": {
+            "type": "string",
+            "enum": [
+                "csv",
+                "json"
+            ],
+            "default": "json"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "userIp": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "The spectrum-use notification message which must contain the geolocation of the Device and parameters required by the regulatory domain.",
+            "properties": {
+                "deviceDesc": {
+                    "description": "Device descriptor information is required in the spectrum-use notification message.",
+                    "properties": {
+                        "etsiEnDeviceCategory": {
+                            "description": "Specifies the ETSI white space device category. Valid values are the strings master and slave. This field is case-insensitive. Consult the ETSI documentation for details about the device types.",
+                            "type": "string"
+                        },
+                        "etsiEnDeviceEmissionsClass": {
+                            "description": "Specifies the ETSI white space device emissions class. The values are represented by numeric strings, such as 1, 2, etc. Consult the ETSI documentation for details about the device types.",
+                            "type": "string"
+                        },
+                        "etsiEnDeviceType": {
+                            "description": "Specifies the ETSI white space device type. Valid values are single-letter strings, such as A, B, etc. Consult the ETSI documentation for details about the device types.",
+                            "type": "string"
+                        },
+                        "etsiEnTechnologyId": {
+                            "description": "Specifies the ETSI white space device technology identifier. The string value must not exceed 64 characters in length. Consult the ETSI documentation for details about the device types.",
+                            "type": "string"
+                        },
+                        "fccId": {
+                            "description": "Specifies the device's FCC certification identifier. The value is an identifier string whose length should not exceed 32 characters. Note that, in practice, a valid FCC ID may be limited to 19 characters.",
+                            "type": "string"
+                        },
+                        "fccTvbdDeviceType": {
+                            "description": "Specifies the TV Band White Space device type, as defined by the FCC. Valid values are FIXED, MODE_1, MODE_2.",
+                            "type": "string"
+                        },
+                        "manufacturerId": {
+                            "description": "The manufacturer's ID may be required by the regulatory domain. This should represent the name of the device manufacturer, should be consistent across all devices from the same manufacturer, and should be distinct from that of other manufacturers. The string value must not exceed 64 characters in length.",
+                            "type": "string"
+                        },
+                        "modelId": {
+                            "description": "The device's model ID may be required by the regulatory domain. The string value must not exceed 64 characters in length.",
+                            "type": "string"
+                        },
+                        "rulesetIds": {
+                            "description": "The list of identifiers for rulesets supported by the device. A database may require that the device provide this list before servicing the device requests. If the database does not support any of the rulesets specified in the list, the database may refuse to service the device requests. If present, the list must contain at least one entry.\n\nFor information about the valid requests, see section 9.2 of the PAWS specification. Currently, FccTvBandWhiteSpace-2010 is the only supported ruleset.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "serialNumber": {
+                            "description": "The manufacturer's device serial number; required by the applicable regulatory domain. The length of the value must not exceed 64 characters.",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "location": {
+                    "description": "The geolocation of the master device (the device that is sending the spectrum-use notification) to the database is required in the spectrum-use notification message.",
+                    "properties": {
+                        "confidence": {
+                            "description": "The location confidence level, as an integer percentage, may be required, depending on the regulatory domain. When the parameter is optional and not provided, its value is assumed to be 95. Valid values range from 0 to 99, since, in practice, 100-percent confidence is not achievable. The confidence value is meaningful only when geolocation refers to a point with uncertainty.",
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "point": {
+                            "description": "If present, indicates that the geolocation represents a point. Paradoxically, a point is parameterized using an ellipse, where the center represents the location of the point and the distances along the major and minor axes represent the uncertainty. The uncertainty values may be required, depending on the regulatory domain.",
+                            "properties": {
+                                "center": {
+                                    "description": "A required geo-spatial point representing the center of the ellipse.",
+                                    "properties": {
+                                        "latitude": {
+                                            "description": "A required floating-point number that expresses the latitude in degrees using the WGS84 datum. For details on this encoding, see the National Imagery and Mapping Agency's Technical Report TR8350.2.",
+                                            "format": "double",
+                                            "type": "number"
+                                        },
+                                        "longitude": {
+                                            "description": "A required floating-point number that expresses the longitude in degrees using the WGS84 datum. For details on this encoding, see the National Imagery and Mapping Agency's Technical Report TR8350.2.",
+                                            "format": "double",
+                                            "type": "number"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "orientation": {
+                                    "description": "A floating-point number that expresses the orientation of the ellipse, representing the rotation, in degrees, of the semi-major axis from North towards the East. For example, when the uncertainty is greatest along the North-South direction, orientation is 0 degrees; conversely, if the uncertainty is greatest along the East-West direction, orientation is 90 degrees. When orientation is not present, the orientation is assumed to be 0.",
+                                    "format": "double",
+                                    "type": "number"
+                                },
+                                "semiMajorAxis": {
+                                    "description": "A floating-point number that expresses the location uncertainty along the major axis of the ellipse. May be required by the regulatory domain. When the uncertainty is optional, the default value is 0.",
+                                    "format": "double",
+                                    "type": "number"
+                                },
+                                "semiMinorAxis": {
+                                    "description": "A floating-point number that expresses the location uncertainty along the minor axis of the ellipse. May be required by the regulatory domain. When the uncertainty is optional, the default value is 0.",
+                                    "format": "double",
+                                    "type": "number"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "region": {
+                            "description": "If present, indicates that the geolocation represents a region. Database support for regions is optional.",
+                            "properties": {
+                                "exterior": {
+                                    "description": "When the geolocation describes a region, the exterior field refers to a list of latitude/longitude points that represent the vertices of a polygon. The first and last points must be the same. Thus, a minimum of four points is required. The following polygon restrictions from RFC5491 apply:  \n- A connecting line shall not cross another connecting line of the same polygon. \n- The vertices must be defined in a counterclockwise order. \n- The edges of a polygon are defined by the shortest path between two points in space (not a geodesic curve). Consequently, the length between two adjacent vertices should be restricted to a maximum of 130 km. \n- All vertices are assumed to be at the same altitude. \n- Polygon shapes should be restricted to a maximum of 15 vertices (16 points that include the repeated vertex).",
+                                    "items": {
+                                        "description": "A single geolocation on the globe.",
+                                        "properties": {
+                                            "latitude": {
+                                                "description": "A required floating-point number that expresses the latitude in degrees using the WGS84 datum. For details on this encoding, see the National Imagery and Mapping Agency's Technical Report TR8350.2.",
+                                                "format": "double",
+                                                "type": "number"
+                                            },
+                                            "longitude": {
+                                                "description": "A required floating-point number that expresses the longitude in degrees using the WGS84 datum. For details on this encoding, see the National Imagery and Mapping Agency's Technical Report TR8350.2.",
+                                                "format": "double",
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "spectra": {
+                    "description": "A spectrum list is required in the spectrum-use notification. The list specifies the spectrum that the device expects to use, which includes frequency ranges and maximum power levels. The list may be empty if the device decides not to use any of spectrum. For consistency, the psdBandwidthHz value should match that from one of the spectrum elements in the corresponding available spectrum response previously sent to the device by the database. Note that maximum power levels in the spectrum element must be expressed as power spectral density over the specified psdBandwidthHz value. The actual bandwidth to be used (as computed from the start and stop frequencies) may be different from the psdBandwidthHz value. As an example, when regulatory rules express maximum power spectral density in terms of maximum power over any 100 kHz band, then the psdBandwidthHz value should be set to 100 kHz, even though the actual bandwidth used can be 20 kHz.",
+                    "items": {
+                        "description": "Available spectrum can be logically characterized by a list of frequency ranges and permissible power levels for each range.",
+                        "properties": {
+                            "bandwidth": {
+                                "description": "The bandwidth (in Hertz) for which permissible power levels are specified. For example, FCC regulation would require only one spectrum specification at 6MHz bandwidth, but Ofcom regulation would require two specifications, at 0.1MHz and 8MHz. This parameter may be empty if there is no available spectrum. It will be present otherwise.",
+                                "format": "double",
+                                "type": "number"
+                            },
+                            "frequencyRanges": {
+                                "description": "The list of frequency ranges and permissible power levels. The list may be empty if there is no available spectrum, otherwise it will be present.",
+                                "items": {
+                                    "description": "A specific range of frequencies together with the associated maximum power level and channel identifier.",
+                                    "properties": {
+                                        "channelId": {
+                                            "description": "The database may include a channel identifier, when applicable. When it is included, the device should treat it as informative. The length of the identifier should not exceed 16 characters.",
+                                            "type": "string"
+                                        },
+                                        "maxPowerDBm": {
+                                            "description": "The maximum total power level (EIRP)—computed over the corresponding operating bandwidth—that is permitted within the frequency range. Depending on the context in which the frequency-range element appears, this value may be required. For example, it is required in the available-spectrum response, available-spectrum-batch response, and spectrum-use notification message, but it should not be present (it is not applicable) when the frequency range appears inside a device-capabilities message.",
+                                            "format": "double",
+                                            "type": "number"
+                                        },
+                                        "startHz": {
+                                            "description": "The required inclusive start of the frequency range (in Hertz).",
+                                            "format": "double",
+                                            "type": "number"
+                                        },
+                                        "stopHz": {
+                                            "description": "The required exclusive end of the frequency range (in Hertz).",
+                                            "format": "double",
+                                            "type": "number"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "type": {
+                    "description": "The message type (e.g., INIT_REQ, AVAIL_SPECTRUM_REQ, ...).\n\nRequired field.",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "The PAWS version. Must be exactly 1.0.\n\nRequired field.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

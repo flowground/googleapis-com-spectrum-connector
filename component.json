@@ -1,0 +1,136 @@
+{
+    "title": "Google Spectrum Database",
+    "description": "API for spectrum-management functions.",
+    "docsUrl": "http://developers.google.com/spectrum",
+    "url": "https://api.apis.guru/v2/specs/googleapis.com/spectrum/v1explorer/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://www.googleapis.com/spectrum/v1explorer/paws",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "spectrum_paws_getSpectrum": {
+            "main": "./lib/actions/spectrum_paws_getSpectrum.js",
+            "title": "Requests information about the available spectrum for a device at a location. Requests from a fixed-mode device must include owner information so the device can be registered with the database.",
+            "description": "Requests information about the available spectrum for a device at a location. Requests from a fixed-mode device must include owner information so the device can be registered with the database.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/spectrum_paws_getSpectrum.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "spectrum_paws_getSpectrumBatch": {
+            "main": "./lib/actions/spectrum_paws_getSpectrumBatch.js",
+            "title": "The Google Spectrum Database does not support batch requests, so this method always yields an UNIMPLEMENTED error.",
+            "description": "The Google Spectrum Database does not support batch requests, so this method always yields an UNIMPLEMENTED error.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/spectrum_paws_getSpectrumBatch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "spectrum_paws_init": {
+            "main": "./lib/actions/spectrum_paws_init.js",
+            "title": "Initializes the connection between a white space device and the database.",
+            "description": "Initializes the connection between a white space device and the database.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/spectrum_paws_init.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "spectrum_paws_notifySpectrumUse": {
+            "main": "./lib/actions/spectrum_paws_notifySpectrumUse.js",
+            "title": "Notifies the database that the device has selected certain frequency ranges for transmission. Only to be invoked when required by the regulator. The Google Spectrum Database does not operate in domains that require notification, so this always yields an UNIMPLEMENTED error.",
+            "description": "Notifies the database that the device has selected certain frequency ranges for transmission. Only to be invoked when required by the regulator. The Google Spectrum Database does not operate in domains that require notification, so this always yields an UNIMPLEMENTED error.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/spectrum_paws_notifySpectrumUse.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "spectrum_paws_register": {
+            "main": "./lib/actions/spectrum_paws_register.js",
+            "title": "The Google Spectrum Database implements registration in the getSpectrum method. As such this always returns an UNIMPLEMENTED error.",
+            "description": "The Google Spectrum Database implements registration in the getSpectrum method. As such this always returns an UNIMPLEMENTED error.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/spectrum_paws_register.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "spectrum_paws_verifyDevice": {
+            "main": "./lib/actions/spectrum_paws_verifyDevice.js",
+            "title": "Validates a device for white space use in accordance with regulatory rules. The Google Spectrum Database does not support master/slave configurations, so this always yields an UNIMPLEMENTED error.",
+            "description": "Validates a device for white space use in accordance with regulatory rules. The Google Spectrum Database does not support master/slave configurations, so this always yields an UNIMPLEMENTED error.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/spectrum_paws_verifyDevice.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
